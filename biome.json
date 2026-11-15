@@ -52,6 +52,16 @@
       }
     },
     {
+      "includes": ["src/components/scene/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noStaticElementInteractions": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["src/components/projects/repo-cover.tsx"],
       "linter": {
         "rules": {
