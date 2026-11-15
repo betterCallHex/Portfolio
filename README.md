@@ -1,35 +1,55 @@
-# My Portfolio
+# Portfolio
 
-This project is my personal portfolio website showcasing my skills, projects, and experiences. Built with **Next.js**, **TailwindCSS**, and other modern tools.
+Personal portfolio of Yunes Maghsoudie: an editorial, minimal single-page site with selected work pulled live from GitHub, an about section, a contact form and a newsletter sign-up.
 
-## Features
-- Modern and responsive design
-- Fast rendering with **Next.js 15**
-- Professional styling with **TailwindCSS**
-- Smooth animations using **motion**
-- Displaying GitHub data with **octokit**
-- Beautiful notifications with **react-hot-toast**
+## Stack
 
-## Installation and Setup
+- **React 19** with the **React Compiler**
+- **TanStack Router** (file-based routes, loaders with deferred data)
+- **TypeScript 7**
+- **Tailwind CSS v4** with **shadcn/ui** components built on **Base UI**
+- **Motion** for animation
+- **Vite 8** and **Bun**
+- **Biome** for linting and formatting
+- **Vercel Functions** (`api/`) for the contact and newsletter endpoints
+
+## Getting started
 
 ```sh
-# Clone the repository
-git clone https://github.com/callmedeci/Portfolio/
-cd my-portfolio
-
-# Install dependencies
-yarn install  # or npm install
-
-# Start the development server
-yarn dev  # or npm run dev
+bun install
+bun dev
 ```
 
-## Technologies and Tools
-- **Frontend**: Next.js 15, React 19, TailwindCSS 4
-- **UI & Animation**: Motion, Lucide React, React Icons
-- **Utilities**: Zod (validation), Date-fns, Tailwind Merge
-- **Linting & Formatting**: ESLint, Prettier, Tailwind Prettier Plugin
+The dev server serves the `api/` functions too, so the forms work locally.
 
----
+## Environment variables
 
-If you like this project, consider giving it a star and forking it!
+| Name                  | Used by                        | Purpose                                        |
+| --------------------- | ------------------------------ | ---------------------------------------------- |
+| `DISCORD_WEBHOOK_URL` | `api/contact`, `api/subscribe` | Discord webhook that receives form submissions |
+
+Put it in `.env.local` for local development and in the Vercel project settings for production.
+
+## Scripts
+
+| Command         | What it does                         |
+| --------------- | ------------------------------------ |
+| `bun dev`       | Start the dev server                 |
+| `bun run build` | Type-check and build for production  |
+| `bun preview`   | Preview the production build         |
+| `bun typecheck` | Type-check only                      |
+| `bun lint`      | Lint and check formatting with Biome |
+| `bun format`    | Apply Biome fixes and formatting     |
+
+## Project layout
+
+```
+api/              Vercel Functions (contact, subscribe)
+server/           Server helpers shared by the functions, plus the dev-server entry
+src/routes/       TanStack Router file routes
+src/components/   Page sections, layout and shadcn/ui components
+src/lib/          Profile content, GitHub data, form schemas
+public/           Static assets (avatar, CV, icons)
+```
+
+Profile copy, social links and the technology list live in `src/lib/profile.ts`.
