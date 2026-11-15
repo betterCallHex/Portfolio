@@ -23,22 +23,81 @@ export const socialLinks = [
   { label: 'Email', href: `mailto:${profile.email}` },
 ];
 
-export const marqueeTechnologies = [
-  { name: 'React', icon: '/svg/react.svg' },
-  { name: 'Next.js', icon: '/svg/nextjs.svg' },
-  { name: 'Tailwind CSS', icon: '/svg/tailwind.svg' },
-  { name: 'JavaScript', icon: '/svg/javascript.svg' },
-  { name: 'Vite', icon: '/svg/vite.svg' },
-  { name: 'Git', icon: '/svg/git.svg' },
+export const coreStack = [
+  'TypeScript',
+  'React',
+  'TanStack',
+  'Next.js',
+  'Tailwind CSS',
+  'Zod',
+  'Drizzle',
+  'PostgreSQL',
 ];
 
-export const mainTechnologies = [
-  { name: 'JavaScript', icon: '/svg/javascript.svg', level: 'Expert' },
-  { name: 'Tailwind CSS', icon: '/svg/tailwind.svg', level: 'Expert' },
-  { name: 'React', icon: '/svg/react.svg', level: 'Mid' },
-  { name: 'Git', icon: '/svg/git.svg', level: 'Mid' },
-  { name: 'Vite', icon: '/svg/vite.svg', level: 'Mid' },
-  { name: 'Next.js', icon: '/svg/nextjs.svg', level: 'Junior' },
+export const skillGroups = [
+  {
+    title: 'Languages & frameworks',
+    skills: [
+      'TypeScript',
+      'JavaScript',
+      'React',
+      'TanStack Start',
+      'TanStack Router',
+      'Next.js',
+      'Vite',
+      'Expo / React Native',
+    ],
+  },
+  {
+    title: 'UI & motion',
+    skills: [
+      'Tailwind CSS',
+      'shadcn/ui',
+      'Base UI',
+      'Radix UI',
+      'Motion',
+      'Embla Carousel',
+      'dnd-kit',
+      'Tiptap',
+    ],
+  },
+  {
+    title: 'Data & state',
+    skills: [
+      'TanStack Query',
+      'TanStack Form',
+      'Zod',
+      'Zustand',
+      'React Hook Form',
+      'T3 Env',
+    ],
+  },
+  {
+    title: 'Back end & services',
+    skills: [
+      'PostgreSQL',
+      'Drizzle ORM',
+      'Better Auth',
+      'Convex',
+      'Supabase',
+      'Sanity',
+      'Stripe',
+      'Resend & React Email',
+    ],
+  },
+  {
+    title: 'Tooling & delivery',
+    skills: [
+      'Bun',
+      'Biome',
+      'React Compiler',
+      'Turborepo',
+      'Vitest',
+      'Playwright',
+      'Git',
+      'Vercel',
+    ],
+  },
 ];
 
 export const aboutQuestions = [
@@ -55,7 +114,7 @@ export const aboutQuestions = [
   {
     question: 'What inspires my work?',
     answer:
-      'Honestly, almost everything about web development (except TypeScript). From beautifully designed UI/UX to the thrill of finally fixing a bug after hours, it’s all part of the adventure. Discovering web development in 2023 has been the best journey of my life: from my first lines of HTML and CSS to Tailwind CSS, React and Next.js, and of course my dear love, JavaScript. Now here I am, building real projects. Such an incredible ride!',
+      'Honestly, almost everything about web development (yes, even TypeScript these days). From beautifully designed UI/UX to the thrill of finally fixing a bug after hours, it’s all part of the adventure. Discovering web development in 2023 has been the best journey of my life: from my first lines of HTML and CSS to Tailwind CSS, React and Next.js, and of course my dear love, JavaScript. Now here I am, building real projects. Such an incredible ride!',
   },
   {
     question: 'How do I approach challenges?',

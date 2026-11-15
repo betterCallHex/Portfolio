@@ -54,7 +54,7 @@ export function StatusPage({
 }) {
   return (
     <section className='mx-auto flex min-h-[70dvh] max-w-6xl flex-col justify-center px-5 py-24 sm:px-8'>
-      <p className='text-brand font-serif text-[clamp(5rem,16vw,11rem)] leading-none italic'>
+      <p className='text-brand-text font-serif text-[clamp(5rem,16vw,11rem)] leading-none italic'>
         {code}
       </p>
       <h1 className='mt-6 text-3xl font-medium tracking-tight sm:text-4xl'>
@@ -108,7 +108,7 @@ export function GitHubUnavailable({ githubUrl }: { githubUrl: string }) {
         href={githubUrl}
         target='_blank'
         rel='noreferrer'
-        className='text-foreground hover:text-brand underline underline-offset-4'
+        className='text-foreground hover:text-brand-text underline underline-offset-4'
       >
         Browse the projects on GitHub
       </a>{' '}

@@ -15,6 +15,7 @@ const router = createRouter({
   defaultPreloadStaleTime: FIVE_MINUTES,
   defaultPendingMs: 300,
   scrollRestoration: true,
+  defaultViewTransition: true,
   defaultErrorComponent: RouteError,
   defaultNotFoundComponent: NotFound,
 });
@@ -30,7 +31,7 @@ if (!rootElement) throw new Error('Missing #root element in index.html');
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ThemeProvider>
+    <ThemeProvider defaultTheme='dark'>
       <RouterProvider router={router} />
     </ThemeProvider>
   </StrictMode>,

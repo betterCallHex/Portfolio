@@ -3,52 +3,58 @@ import { ArrowRight } from 'lucide-react';
 import { AboutSection } from '@/components/home/about-section';
 import { ContactSection } from '@/components/home/contact-section';
 import { Hero } from '@/components/home/hero';
-import { TechMarquee } from '@/components/home/tech-marquee';
-import { ProjectList } from '@/components/projects/project-list';
+import { RepoCard } from '@/components/projects/repo-card';
 import {
   GitHubUnavailable,
   ProjectListSkeleton,
 } from '@/components/route-states';
 import { SectionHeading } from '@/components/section-heading';
-import { getPinnedRepositories } from '@/lib/github';
+import { getFeaturedRepositories } from '@/lib/github';
 import { profile } from '@/lib/profile';
 
 export const Route = createFileRoute('/')({
   loader: () => ({
-    pinnedProjects: getPinnedRepositories().catch(() => null),
+    featuredProjects: getFeaturedRepositories().catch(() => null),
   }),
   component: HomePage,
 });
 
 function HomePage() {
-  const { pinnedProjects } = Route.useLoaderData();
+  const { featuredProjects } = Route.useLoaderData();
 
   return (
     <>
       <Hero />
-      <TechMarquee />
 
-      <section id='work' className='mx-auto max-w-6xl px-5 pt-32 sm:px-8'>
+      <section id='work' className='mx-auto max-w-6xl px-5 pt-28 sm:px-8'>
         <SectionHeading
           index='01'
-          title='Selected work'
+          title='Selected repos'
           aside={
             <Link
               to='/projects'
-              className='group text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors'
+              className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors'
             >
-              All projects
-              <ArrowRight className='size-4 transition-transform group-hover:translate-x-0.5' />
+              All repos
+              <ArrowRight className='size-4' />
             </Link>
           }
         />
+        <p className='text-muted-foreground mt-6 max-w-xl'>
+          Things I’ve built while learning, breaking and rebuilding. The code is
+          the interesting part, so each one links straight to GitHub.
+        </p>
         <Await
-          promise={pinnedProjects}
+          promise={featuredProjects}
           fallback={<ProjectListSkeleton rows={2} />}
         >
           {(projects) =>
             projects ? (
-              <ProjectList projects={projects} />
+              <div className='mt-10 grid gap-5 md:grid-cols-2'>
+                {projects.map((project) => (
+                  <RepoCard key={project.name} project={project} />
+                ))}
+              </div>
             ) : (
               <GitHubUnavailable githubUrl={profile.githubUrl} />
             )

@@ -50,6 +50,16 @@
       "linter": {
         "enabled": false
       }
+    },
+    {
+      "includes": ["src/components/projects/repo-cover.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noArrayIndexKey": "off"
+          }
+        }
+      }
     }
   ]
 }

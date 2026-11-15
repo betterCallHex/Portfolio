@@ -3,6 +3,7 @@ import { cn } from 'cn';
 import { Menu } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import { SectionLink } from '@/components/section-link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,20 +22,24 @@ const sections = [
 ] as const;
 
 const observedSectionIds = ['intro', ...sections.map(({ id }) => id)];
+const INDICATOR_SPRING = { type: 'spring', bounce: 0, duration: 0.4 } as const;
 
 export function SiteHeader() {
   const activeSection = useActiveSection(observedSectionIds);
 
   return (
-    <header className='border-border/60 bg-background/75 sticky top-0 z-40 border-b backdrop-blur-xl'>
+    <header
+      className='bg-background/80 sticky top-0 z-40 border-b backdrop-blur-xl'
+      style={{ viewTransitionName: 'site-header' }}
+    >
       <div className='mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8'>
-        <Link to='/' hash='intro' className='group flex items-center gap-3'>
+        <Link to='/' className='flex items-center gap-3'>
           <img
             src={profile.avatar}
             alt=''
             width={32}
             height={32}
-            className='bg-muted size-8 rounded-full border object-cover transition-transform duration-500 group-hover:rotate-[-8deg]'
+            className='bg-muted size-8 rounded-full object-cover'
           />
           <span className='text-sm font-medium tracking-tight'>
             {profile.name}
@@ -43,10 +48,9 @@ export function SiteHeader() {
 
         <nav aria-label='Primary' className='hidden items-center gap-1 md:flex'>
           {sections.map((section) => (
-            <Link
+            <SectionLink
               key={section.id}
-              to='/'
-              hash={section.id}
+              section={section.id}
               className={cn(
                 'text-muted-foreground hover:text-foreground relative rounded-full px-3.5 py-1.5 text-sm transition-colors',
                 activeSection === section.id && 'text-foreground',
@@ -55,12 +59,12 @@ export function SiteHeader() {
               {activeSection === section.id && (
                 <motion.span
                   layoutId='active-section'
+                  transition={INDICATOR_SPRING}
                   className='bg-muted absolute inset-0 rounded-full'
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                 />
               )}
               <span className='relative'>{section.label}</span>
-            </Link>
+            </SectionLink>
           ))}
           <Link
             to='/projects'
@@ -72,15 +76,16 @@ export function SiteHeader() {
 
         <div className='flex items-center gap-1'>
           <ThemeToggle />
-          <MobileNavigation activeSection={activeSection} />
+          <MobileNavigation />
         </div>
       </div>
     </header>
   );
 }
 
-function MobileNavigation({ activeSection }: { activeSection: string | null }) {
+function MobileNavigation() {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -97,35 +102,25 @@ function MobileNavigation({ activeSection }: { activeSection: string | null }) {
         <Menu />
       </SheetTrigger>
       <SheetContent side='right' className='gap-0 p-6 pt-16'>
-        <SheetTitle className='text-muted-foreground mb-6 font-mono text-xs tracking-widest uppercase'>
+        <SheetTitle className='text-muted-foreground mb-4 font-mono text-xs tracking-widest uppercase'>
           Navigation
         </SheetTitle>
         <nav aria-label='Mobile' className='flex flex-col'>
-          {sections.map((section, index) => (
-            <Link
+          {sections.map((section) => (
+            <SectionLink
               key={section.id}
-              to='/'
-              hash={section.id}
-              onClick={() => setOpen(false)}
-              className={cn(
-                'flex items-baseline gap-4 border-b py-4 text-2xl tracking-tight',
-                activeSection === section.id
-                  ? 'text-foreground'
-                  : 'text-muted-foreground',
-              )}
+              section={section.id}
+              onClick={close}
+              className='border-b py-4 text-2xl tracking-tight'
             >
-              <span className='text-muted-foreground font-mono text-xs'>
-                0{index + 1}
-              </span>
               {section.label}
-            </Link>
+            </SectionLink>
           ))}
           <Link
             to='/projects'
-            onClick={() => setOpen(false)}
-            className='text-muted-foreground [&.active]:text-foreground flex items-baseline gap-4 py-4 text-2xl tracking-tight'
+            onClick={close}
+            className='py-4 text-2xl tracking-tight'
           >
-            <span className='font-mono text-xs'>→</span>
             Archive
           </Link>
         </nav>

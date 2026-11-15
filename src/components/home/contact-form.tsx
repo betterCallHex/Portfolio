@@ -71,7 +71,7 @@ export function ContactForm() {
           type='submit'
           size='lg'
           disabled={isPending}
-          className='h-11 w-full rounded-full px-5 sm:w-fit sm:self-end'
+          className='bg-brand text-brand-foreground hover:bg-brand/85 h-11 w-full rounded-full px-5 sm:w-fit sm:self-end'
         >
           {isPending ? <LoaderCircle className='animate-spin' /> : <Send />}
           {isPending ? 'Sending…' : 'Send message'}

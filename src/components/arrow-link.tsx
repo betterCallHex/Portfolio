@@ -12,13 +12,13 @@ export function ArrowLink({
       target='_blank'
       rel='noreferrer'
       className={cn(
-        'group/arrow hover:text-brand inline-flex items-center gap-1 text-sm underline-offset-4 transition-colors hover:underline',
+        'hover:text-brand-text inline-flex items-center gap-1 text-sm underline-offset-4 transition-colors hover:underline',
         className,
       )}
       {...props}
     >
       {children}
-      <ArrowUpRight className='size-3.5 transition-transform group-hover/arrow:translate-x-0.5 group-hover/arrow:-translate-y-0.5' />
+      <ArrowUpRight className='size-3.5' />
     </a>
   );
 }

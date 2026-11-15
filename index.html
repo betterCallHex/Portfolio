@@ -21,7 +21,7 @@
       try {
         const stored = localStorage.getItem('theme');
         const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-        const dark = stored === 'dark' || ((!stored || stored === 'system') && prefersDark);
+        const dark = stored ? stored === 'dark' || (stored === 'system' && prefersDark) : true;
         document.documentElement.classList.add(dark ? 'dark' : 'light');
       } catch {}
     </script>
