@@ -17,7 +17,7 @@ import { profile } from '@/lib/profile';
 
 const sections = [
   { id: 'work', label: 'Work' },
-  { id: 'about', label: 'About' },
+  { id: 'principles', label: 'How I work' },
   { id: 'contact', label: 'Contact' },
 ] as const;
 

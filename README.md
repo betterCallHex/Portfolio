@@ -1,6 +1,6 @@
 # Portfolio
 
-Personal portfolio of Yunes Maghsoudie: an editorial, minimal single-page site with selected work pulled live from GitHub, an about section, a contact form and a newsletter sign-up.
+Personal portfolio of Yunes Maghsoudie: an editorial, minimal single-page site that reads top-down: who I am, what I've shipped, how I work, and how to reach me. An archive of open-source repos is pulled live from GitHub.
 
 ## Stack
 
@@ -9,6 +9,7 @@ Personal portfolio of Yunes Maghsoudie: an editorial, minimal single-page site w
 - **TypeScript 7**
 - **Tailwind CSS v4** with **shadcn/ui** components built on **Base UI**
 - **Motion** for animation
+- **three.js** with **React Three Fiber** for the hero scene, loaded lazily
 - **Vite 8** and **Bun**
 - **Biome** for linting and formatting
 - **Vercel Functions** (`api/`) for the contact and newsletter endpoints
@@ -52,4 +53,4 @@ src/lib/          Profile content, GitHub data, form schemas
 public/           Static assets (avatar, CV, icons)
 ```
 
-Profile copy, social links and the technology list live in `src/lib/profile.ts`.
+Profile copy, social links, the stack, shipped products and working principles live in `src/lib/profile.ts`. The 3D hero lives in `src/components/scene/`.

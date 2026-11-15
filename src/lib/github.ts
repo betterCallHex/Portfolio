@@ -3,8 +3,6 @@ import { z } from 'zod';
 import { profile } from '@/lib/profile';
 
 const GITHUB_API = 'https://api.github.com';
-const PINNED_API = 'https://pinned.berrysauce.dev/get';
-const FEATURED_COUNT = 4;
 
 const repositorySchema = z.object({
   name: z.string(),
@@ -17,8 +15,6 @@ const repositorySchema = z.object({
   created_at: z.string(),
   updated_at: z.string(),
 });
-
-const pinnedSchema = z.array(z.object({ name: z.string() }));
 
 export type Repository = z.infer<typeof repositorySchema>;
 
@@ -45,20 +41,6 @@ export async function getShowcaseRepositories() {
     );
 
   return repositories.filter(isShowcase);
-}
-
-export async function getFeaturedRepositories() {
-  const [showcase, pinnedNames] = await Promise.all([
-    getShowcaseRepositories(),
-    getPinnedNames(),
-  ]);
-
-  const pinned = pinnedNames
-    .map((name) => showcase.find((repository) => repository.name === name))
-    .filter((repository) => repository !== undefined);
-  const newest = showcase.filter((repository) => !pinned.includes(repository));
-
-  return [...pinned, ...newest].slice(0, FEATURED_COUNT);
 }
 
 export async function getRepository(name: string) {
@@ -92,17 +74,6 @@ async function requestGitHub(path: string): Promise<unknown> {
   if (!response.ok) throw new GitHubError(response.status);
 
   return response.json();
-}
-
-async function getPinnedNames() {
-  try {
-    const response = await fetch(`${PINNED_API}/${profile.githubUser}`);
-    if (!response.ok) return [];
-
-    return pinnedSchema.parse(await response.json()).map(({ name }) => name);
-  } catch {
-    return [];
-  }
 }
 
 function isShowcase(repository: Repository) {

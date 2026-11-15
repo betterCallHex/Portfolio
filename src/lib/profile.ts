@@ -3,7 +3,9 @@ const GITHUB_USER = 'betterCallHex';
 export const profile = {
   name: 'Yunes Maghsoudie',
   firstName: 'Yunes',
-  role: 'Front-end developer',
+  role: 'Full-stack engineer',
+  studio: { name: 'Hooman Studio', url: 'https://github.com/Hoooman-Studio' },
+  mergedPullRequests: '1,000+',
   email: 'yunes@osloweb.no',
   githubUser: GITHUB_USER,
   githubUrl: `https://github.com/${GITHUB_USER}`,
@@ -20,110 +22,106 @@ export const socialLinks = [
     href: 'https://www.linkedin.com/in/yunes-maghsoudie-53114737b/',
   },
   { label: 'Telegram', href: 'https://t.me/YuooYi' },
-  { label: 'Email', href: `mailto:${profile.email}` },
 ];
 
-export const coreStack = [
+export const stack = [
   'TypeScript',
   'React',
-  'TanStack',
   'Next.js',
-  'Tailwind CSS',
-  'Zod',
-  'Drizzle',
-  'PostgreSQL',
+  'TanStack',
+  'Convex',
+  'Medusa',
+  'Sanity',
+  'Postgres',
+  'Expo',
+  'Electron',
+  'Tailwind',
+  'Stripe',
+  'Vercel',
+  'Rust',
+  'Go',
 ];
 
-export const skillGroups = [
+export const studioProducts = [
   {
-    title: 'Languages & frameworks',
-    skills: [
-      'TypeScript',
-      'JavaScript',
-      'React',
-      'TanStack Start',
-      'TanStack Router',
-      'Next.js',
-      'Vite',
-      'Expo / React Native',
-    ],
+    title: 'Studio dashboard',
+    description:
+      'The dashboard our team and clients run projects in: tasks, task flows, discussions, voice messages, a decision record for each client, and an MCP server that coding agents use to read and update work.',
   },
   {
-    title: 'UI & motion',
-    skills: [
-      'Tailwind CSS',
-      'shadcn/ui',
-      'Base UI',
-      'Radix UI',
-      'Motion',
-      'Embla Carousel',
-      'dnd-kit',
-      'Tiptap',
-    ],
+    title: 'E-commerce platform',
+    description:
+      'Storefront, admin, Stripe checkout, DHL shipping and returns, affiliates and B2B retailer accounts, on Medusa and Next.js.',
   },
   {
-    title: 'Data & state',
-    skills: [
-      'TanStack Query',
-      'TanStack Form',
-      'Zod',
-      'Zustand',
-      'React Hook Form',
-      'T3 Env',
-    ],
+    title: 'Bilingual rental marketplace',
+    description:
+      'Discovery, saved homes, messaging, listing import and invoicing, on Convex, Sanity and Next.js.',
   },
   {
-    title: 'Back end & services',
-    skills: [
-      'PostgreSQL',
-      'Drizzle ORM',
-      'Better Auth',
-      'Convex',
-      'Supabase',
-      'Sanity',
-      'Stripe',
-      'Resend & React Email',
-    ],
+    title: 'Hiring platform',
+    description:
+      'Dashboards for students and companies, on Postgres and Next.js.',
   },
   {
-    title: 'Tooling & delivery',
-    skills: [
-      'Bun',
-      'Biome',
-      'React Compiler',
-      'Turborepo',
-      'Vitest',
-      'Playwright',
-      'Git',
-      'Vercel',
-    ],
+    title: 'Desktop task app',
+    description: 'Electron, Convex and auto-updating installers.',
+  },
+  {
+    title: 'Agent skills',
+    description:
+      'The skills my coding agents run on: commit gates, review loops, and a client decision record checked by rules in Rust instead of model calls.',
+  },
+  {
+    title: 'Marketing sites',
+    description: 'i18n, analytics and lead forms for several clients.',
   },
 ];
 
-export const aboutQuestions = [
+export const principles = [
   {
-    question: 'What can I build?',
-    answer:
-      'Fast, well-designed applications with a clean codebase. I lean on modern JavaScript techniques so everything runs smoothly and efficiently. From sleek UI/UX to pixel-perfect precision, every detail matters.',
+    title: 'Say the outcome',
+    statement:
+      'An issue or a pull request is titled with what changes for the user, so done is obvious before a line moves.',
+    instead: 'Fix compare page',
+    preferred: 'Compare homes shows an empty page while the comparison loads',
   },
   {
-    question: 'What excites me about coding?',
-    answer:
-      'The power of creating something from nothing. Spending hours debugging can be frustrating, but that moment when I finally solve the issue? Pure happiness. Looking at my projects, I feel proud of what I’ve built: the UI, the UX, the complex logic and everything in between.',
+    title: 'Delete first',
+    statement:
+      'Code, tests and docs earn their place. What catches no defect and says nothing the code doesn’t, goes.',
+    instead: 'Keep it, just in case',
+    preferred:
+      'Drop rule tests that catch no defect and cut docs to what code doesn’t hold',
   },
   {
-    question: 'What inspires my work?',
-    answer:
-      'Honestly, almost everything about web development (yes, even TypeScript these days). From beautifully designed UI/UX to the thrill of finally fixing a bug after hours, it’s all part of the adventure. Discovering web development in 2023 has been the best journey of my life: from my first lines of HTML and CSS to Tailwind CSS, React and Next.js, and of course my dear love, JavaScript. Now here I am, building real projects. Such an incredible ride!',
+    title: 'Borrow before building',
+    statement:
+      'I reach for a package that’s already installed before writing my own.',
+    instead: 'lib/validate-email.ts  +48 lines',
+    preferred:
+      'refactor: replace hand-written code with packages already installed',
   },
   {
-    question: 'How do I approach challenges?',
-    answer:
-      'I take a step back to analyse and visualise the situation, reasoning through the problem to uncover what’s really going on, like a true detective. Once I have a solid foundation, the real work begins: coding, debugging and researching until I reach the outcome I want. If I ever fail (which, of course, has never happened), I restart the process like an infinite while loop until the problem is solved.',
+    title: 'Names over comments',
+    statement:
+      'Nothing fails when a comment lies. If a line needs one, it needs a better name.',
+    instead: 'if (status === 5) // sent',
+    preferred: 'if (status === MESSAGE_SENT)',
   },
   {
-    question: 'What technologies do I love?',
-    answer:
-      'My beloved JavaScript and its endless ecosystem. How can anyone live without JS? From fascinating frameworks like Vue and Next.js to both front-end and back-end development, it’s everywhere. Not to mention React, my go-to library for every project, with its components, hooks and the whole ecosystem.',
+    title: 'Sweat the pixel',
+    statement:
+      'Alignment, colour contrast and motion on the compositor are part of the feature, not polish for later.',
+    instead: 'Looks fine on my screen',
+    preferred:
+      'Header and background grid lines land on the same pixels; logo has no seam',
+  },
+  {
+    title: 'Green, then done',
+    statement:
+      'A fix starts with a test that fails on the bug, and nothing ships until every check passes and I’ve walked it in the running app.',
+    instead: 'Works on my machine',
+    preferred: 'Bring Biome to zero warnings in both apps',
   },
 ];

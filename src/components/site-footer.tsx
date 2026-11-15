@@ -1,8 +1,6 @@
-import { Link } from '@tanstack/react-router';
 import { ArrowUp } from 'lucide-react';
 import { ArrowLink } from '@/components/arrow-link';
 import { NewsletterForm } from '@/components/newsletter-form';
-import { SectionLink } from '@/components/section-link';
 import { profile, socialLinks } from '@/lib/profile';
 
 export function SiteFooter() {
@@ -20,46 +18,13 @@ export function SiteFooter() {
           <NewsletterForm />
         </div>
 
-        <div className='grid grid-cols-2 gap-8 text-sm md:justify-self-end'>
-          <div className='flex flex-col gap-3'>
-            <span className='text-muted-foreground font-mono text-xs tracking-widest uppercase'>
-              Elsewhere
-            </span>
-            {socialLinks.map((link) => (
-              <ArrowLink key={link.label} href={link.href} className='w-fit'>
-                {link.label}
-              </ArrowLink>
-            ))}
-          </div>
-          <div className='flex flex-col gap-3'>
-            <span className='text-muted-foreground font-mono text-xs tracking-widest uppercase'>
-              Site
-            </span>
-            <SectionLink section='work' className='hover:text-brand-text w-fit'>
-              Work
-            </SectionLink>
-            <Link to='/projects' className='hover:text-brand-text w-fit'>
-              Archive
-            </Link>
-            <a
-              href={profile.resume}
-              download
-              className='hover:text-brand-text w-fit'
-            >
-              Résumé
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div className='mx-auto max-w-6xl overflow-hidden px-5 sm:px-8'>
-        <p
-          aria-hidden
-          className='font-serif text-[clamp(5rem,22vw,17rem)] leading-[0.8] tracking-tight italic select-none'
-        >
-          {profile.firstName}
-          <span className='text-brand-text'>.</span>
-        </p>
+        <ul className='flex flex-col gap-3 md:justify-self-end'>
+          {socialLinks.map((link) => (
+            <li key={link.label}>
+              <ArrowLink href={link.href}>{link.label}</ArrowLink>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className='text-muted-foreground mx-auto flex max-w-6xl flex-col-reverse items-start justify-between gap-4 px-5 py-8 text-xs sm:flex-row sm:items-center sm:px-8'>
