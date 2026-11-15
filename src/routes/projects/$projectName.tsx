@@ -5,8 +5,7 @@ import {
   useParams,
 } from '@tanstack/react-router';
 import { ArrowLeft, ArrowUpRight, Code2 } from 'lucide-react';
-import { motion } from 'motion/react';
-import { EASE_OUT_EXPO, Reveal } from '@/components/reveal';
+import { RepoCover } from '@/components/projects/repo-cover';
 import { StatusPage } from '@/components/route-states';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -40,12 +39,12 @@ function ProjectPage() {
     <article className='mx-auto max-w-6xl px-5 sm:px-8'>
       <ProjectHeader repository={repository} />
 
-      <Reveal className='bg-card mt-16 rounded-3xl border p-6 sm:p-10 lg:p-14'>
+      <div className='bg-card mt-16 rounded-3xl border p-6 sm:p-10 lg:p-14'>
         <Await promise={readme} fallback={<ReadmeSkeleton />}>
           {(html) =>
             html ? (
               <div
-                className='prose prose-code:before:content-none prose-code:after:content-none prose-code:rounded-md prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-neutral dark:prose-invert prose-img:inline-block prose-pre:rounded-xl prose-img:rounded-lg prose-pre:border prose-pre:bg-muted prose-a:text-brand prose-pre:text-foreground prose-headings:tracking-tight prose-a:underline-offset-4 max-w-none [&_.anchor]:hidden [&_pre_code]:bg-transparent [&_pre_code]:p-0'
+                className='prose prose-code:before:content-none prose-code:after:content-none prose-code:rounded-md prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-neutral dark:prose-invert prose-img:inline-block prose-pre:rounded-xl prose-img:rounded-lg prose-pre:border prose-pre:bg-muted prose-a:text-brand-text prose-pre:text-foreground prose-headings:tracking-tight prose-a:underline-offset-4 max-w-none [&_.anchor]:hidden [&_pre_code]:bg-transparent [&_pre_code]:p-0'
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: GitHub renders and sanitizes README HTML server-side (https://docs.github.com/en/rest/repos/contents#get-a-repository-readme)
                 dangerouslySetInnerHTML={{ __html: html }}
               />
@@ -56,85 +55,107 @@ function ProjectPage() {
             )
           }
         </Await>
-      </Reveal>
+      </div>
     </article>
   );
 }
 
 function ProjectHeader({ repository }: { repository: Repository }) {
   return (
-    <motion.header
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
-      className='pt-12 md:pt-16'
-    >
+    <header className='pt-12 md:pt-16'>
       <Link
         to='/projects'
         className='group text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors'
       >
         <ArrowLeft className='size-4 transition-transform group-hover:-translate-x-0.5' />
-        All projects
+        All repositories
       </Link>
 
-      <h1 className='mt-10 max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.95] font-medium tracking-[-0.045em] capitalize'>
+      <h1
+        className='mt-10 max-w-5xl text-[clamp(3rem,9vw,8rem)] leading-[0.88] font-medium tracking-[-0.05em] capitalize'
+        style={{ viewTransitionName: `project-title-${repository.name}` }}
+      >
         {displayName(repository.name)}
       </h1>
-      <p className='text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed'>
-        {repository.description}
-      </p>
 
-      {repository.topics.length > 0 && (
-        <ul className='mt-8 flex flex-wrap gap-2'>
-          {repository.topics.map((topic) => (
-            <li key={topic}>
-              <Badge variant='outline' className='font-mono'>
-                {topic}
-              </Badge>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className='mt-12 grid gap-8 border-y py-6 sm:grid-cols-[1fr_auto] sm:items-center'>
-        <dl className='grid grid-cols-2 gap-6 text-sm sm:grid-cols-3'>
-          <Meta label='Created' value={formatLongDate(repository.created_at)} />
-          <Meta label='Updated' value={formatLongDate(repository.updated_at)} />
-          {repository.language && (
-            <Meta label='Language' value={repository.language} />
+      <div className='mt-10 grid gap-10 lg:grid-cols-[1fr_1fr]'>
+        <div>
+          <p className='text-muted-foreground text-xl leading-relaxed'>
+            {repository.description}
+          </p>
+          {repository.topics.length > 0 && (
+            <ul className='mt-8 flex flex-wrap gap-2'>
+              {repository.topics.map((topic) => (
+                <li key={topic}>
+                  <Badge variant='outline' className='font-mono'>
+                    {topic}
+                  </Badge>
+                </li>
+              ))}
+            </ul>
           )}
-        </dl>
-        <div className='flex flex-wrap gap-3'>
-          {repository.homepage && (
+          <dl className='mt-10 grid grid-cols-2 gap-6 border-y py-6 text-sm sm:grid-cols-3'>
+            <Meta
+              label='Created'
+              value={formatLongDate(repository.created_at)}
+            />
+            <Meta
+              label='Updated'
+              value={formatLongDate(repository.updated_at)}
+            />
+            {repository.language && (
+              <Meta label='Language' value={repository.language} />
+            )}
+          </dl>
+          <div className='mt-8 flex flex-wrap gap-3'>
             <Button
-              className='h-10 rounded-full px-4'
+              size='lg'
+              className='bg-brand text-brand-foreground hover:bg-brand/85 h-11 rounded-full px-5'
               nativeButton={false}
               render={
                 <a
-                  href={repository.homepage}
+                  href={repository.html_url}
                   target='_blank'
                   rel='noreferrer'
                 />
               }
             >
-              Visit live site
-              <ArrowUpRight />
+              <Code2 />
+              View on GitHub
             </Button>
-          )}
-          <Button
-            variant='outline'
-            className='h-10 rounded-full px-4'
-            nativeButton={false}
-            render={
-              <a href={repository.html_url} target='_blank' rel='noreferrer' />
-            }
-          >
-            <Code2 />
-            Source code
-          </Button>
+            {repository.homepage && (
+              <Button
+                size='lg'
+                variant='outline'
+                className='h-11 rounded-full px-5'
+                nativeButton={false}
+                render={
+                  <a
+                    href={repository.homepage}
+                    target='_blank'
+                    rel='noreferrer'
+                  />
+                }
+              >
+                Live demo
+                <ArrowUpRight />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div
+          className='overflow-hidden rounded-[2rem] border'
+          style={{ viewTransitionName: `project-cover-${repository.name}` }}
+        >
+          <RepoCover
+            name={repository.name}
+            label={repository.language ?? undefined}
+            className='aspect-[4/3] size-full'
+          />
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }
 

@@ -4,7 +4,7 @@ import { profile } from '@/lib/profile';
 
 const GITHUB_API = 'https://api.github.com';
 const PINNED_API = 'https://pinned.berrysauce.dev/get';
-const FALLBACK_PINNED_COUNT = 4;
+const FEATURED_COUNT = 4;
 
 const repositorySchema = z.object({
   name: z.string(),
@@ -47,7 +47,7 @@ export async function getShowcaseRepositories() {
   return repositories.filter(isShowcase);
 }
 
-export async function getPinnedRepositories() {
+export async function getFeaturedRepositories() {
   const [showcase, pinnedNames] = await Promise.all([
     getShowcaseRepositories(),
     getPinnedNames(),
@@ -56,8 +56,9 @@ export async function getPinnedRepositories() {
   const pinned = pinnedNames
     .map((name) => showcase.find((repository) => repository.name === name))
     .filter((repository) => repository !== undefined);
+  const newest = showcase.filter((repository) => !pinned.includes(repository));
 
-  return pinned.length ? pinned : showcase.slice(0, FALLBACK_PINNED_COUNT);
+  return [...pinned, ...newest].slice(0, FEATURED_COUNT);
 }
 
 export async function getRepository(name: string) {

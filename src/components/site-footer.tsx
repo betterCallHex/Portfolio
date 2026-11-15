@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { ArrowUp } from 'lucide-react';
 import { ArrowLink } from '@/components/arrow-link';
 import { NewsletterForm } from '@/components/newsletter-form';
+import { SectionLink } from '@/components/section-link';
 import { profile, socialLinks } from '@/lib/profile';
 
 export function SiteFooter() {
@@ -34,13 +35,17 @@ export function SiteFooter() {
             <span className='text-muted-foreground font-mono text-xs tracking-widest uppercase'>
               Site
             </span>
-            <Link to='/' hash='work' className='hover:text-brand'>
+            <SectionLink section='work' className='hover:text-brand-text w-fit'>
               Work
-            </Link>
-            <Link to='/projects' className='hover:text-brand'>
+            </SectionLink>
+            <Link to='/projects' className='hover:text-brand-text w-fit'>
               Archive
             </Link>
-            <a href={profile.resume} download className='hover:text-brand'>
+            <a
+              href={profile.resume}
+              download
+              className='hover:text-brand-text w-fit'
+            >
               Résumé
             </a>
           </div>
@@ -50,10 +55,10 @@ export function SiteFooter() {
       <div className='mx-auto max-w-6xl overflow-hidden px-5 sm:px-8'>
         <p
           aria-hidden
-          className='text-foreground/90 font-serif text-[clamp(5rem,22vw,17rem)] leading-[0.8] tracking-tight italic select-none'
+          className='font-serif text-[clamp(5rem,22vw,17rem)] leading-[0.8] tracking-tight italic select-none'
         >
           {profile.firstName}
-          <span className='text-brand'>.</span>
+          <span className='text-brand-text'>.</span>
         </p>
       </div>
 
@@ -61,12 +66,13 @@ export function SiteFooter() {
         <p>
           © {new Date().getFullYear()} {profile.name}. All rights reserved.
         </p>
-        <a
-          href='#top'
+        <button
+          type='button'
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className='hover:text-foreground inline-flex items-center gap-1.5 transition-colors'
         >
           Back to top <ArrowUp className='size-3.5' />
-        </a>
+        </button>
       </div>
     </footer>
   );

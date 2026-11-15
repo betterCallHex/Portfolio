@@ -16,7 +16,6 @@ function RootLayout() {
   return (
     <MotionConfig reducedMotion='user'>
       <HeadContent />
-      <div id='top' />
       <SiteHeader />
       <main>
         <Outlet />

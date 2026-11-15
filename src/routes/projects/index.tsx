@@ -1,16 +1,18 @@
 import { Await, createFileRoute } from '@tanstack/react-router';
-import { motion } from 'motion/react';
-import { ProjectList } from '@/components/projects/project-list';
-import { EASE_OUT_EXPO } from '@/components/reveal';
+import { z } from 'zod';
+import { ArchiveList } from '@/components/projects/archive-list';
 import {
   GitHubUnavailable,
   ProjectListSkeleton,
 } from '@/components/route-states';
-import { getShowcaseRepositories } from '@/lib/github';
+import { getShowcaseRepositories, type Repository } from '@/lib/github';
 import { profile } from '@/lib/profile';
 
+const FILTER_TOPIC_COUNT = 8;
+
 export const Route = createFileRoute('/projects/')({
-  head: () => ({ meta: [{ title: `Archive — ${profile.name}` }] }),
+  validateSearch: z.object({ topic: z.string().optional() }),
+  head: () => ({ meta: [{ title: `Repositories — ${profile.name}` }] }),
   loader: () => ({
     projects: getShowcaseRepositories().catch(() => null),
   }),
@@ -19,42 +21,53 @@ export const Route = createFileRoute('/projects/')({
 
 function ProjectsPage() {
   const { projects } = Route.useLoaderData();
+  const { topic } = Route.useSearch();
 
   return (
     <div className='mx-auto max-w-6xl px-5 sm:px-8'>
-      <motion.header
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
-        className='pt-16 pb-16 md:pt-24'
-      >
+      <header className='pt-16 pb-16 md:pt-24'>
         <p className='text-muted-foreground font-mono text-xs tracking-widest uppercase'>
           Archive
         </p>
-        <h1 className='mt-6 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] leading-[1] font-medium tracking-[-0.04em] text-balance'>
+        <h1 className='mt-6 max-w-5xl text-[clamp(2.75rem,7vw,6rem)] leading-[0.95] font-medium tracking-[-0.045em]'>
           Things I’ve made trying to put my{' '}
-          <span className='text-brand font-serif font-normal italic'>dent</span>{' '}
+          <span className='text-brand-text font-serif font-normal italic'>
+            dent
+          </span>{' '}
           in the universe.
         </h1>
         <p className='text-muted-foreground mt-8 max-w-2xl text-lg leading-relaxed'>
-          I’ve worked on tons of little projects over the years, but these are
-          the ones I’m most proud of. Many of them are open source, so if
-          something piques your interest, check out the code and contribute if
-          you have ideas for how it can be improved.
+          I’ve worked on tons of little projects over the years. Many of them
+          are open source, so if something piques your interest, check out the
+          code and contribute if you have ideas for how it can be improved.
         </p>
-      </motion.header>
+      </header>
 
-      <div className='border-t'>
-        <Await promise={projects} fallback={<ProjectListSkeleton rows={6} />}>
-          {(repositories) =>
-            repositories ? (
-              <ProjectList projects={repositories} />
-            ) : (
-              <GitHubUnavailable githubUrl={profile.githubUrl} />
-            )
-          }
-        </Await>
-      </div>
+      <Await promise={projects} fallback={<ProjectListSkeleton rows={6} />}>
+        {(repositories) =>
+          repositories ? (
+            <ArchiveList
+              projects={repositories}
+              topics={popularTopics(repositories)}
+              activeTopic={topic}
+            />
+          ) : (
+            <GitHubUnavailable githubUrl={profile.githubUrl} />
+          )
+        }
+      </Await>
     </div>
   );
+}
+
+function popularTopics(repositories: Repository[]) {
+  const counts = new Map<string, number>();
+  for (const topic of repositories.flatMap((repository) => repository.topics)) {
+    counts.set(topic, (counts.get(topic) ?? 0) + 1);
+  }
+
+  return [...counts.entries()]
+    .sort((first, second) => second[1] - first[1])
+    .slice(0, FILTER_TOPIC_COUNT)
+    .map(([topic]) => topic);
 }
