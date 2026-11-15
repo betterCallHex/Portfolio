@@ -6,7 +6,7 @@ export const profile = {
   role: 'Full-stack engineer',
   studio: { name: 'Hooman Studio', url: 'https://github.com/Hoooman-Studio' },
   mergedPullRequests: '1,000+',
-  email: 'yunes@osloweb.no',
+  email: 'yunes@hooman.com',
   githubUser: GITHUB_USER,
   githubUrl: `https://github.com/${GITHUB_USER}`,
   avatar: '/images/avatar.png',

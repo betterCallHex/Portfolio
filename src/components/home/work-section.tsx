@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
+import { HoomanMark } from '@/components/hooman-mark';
 import { Ledger, LedgerRow } from '@/components/ledger';
 import { profile, stack, studioProducts } from '@/lib/profile';
 
@@ -10,8 +11,17 @@ export function WorkSection() {
         Work
       </h2>
       <p className='mt-8 max-w-3xl font-serif text-3xl leading-tight text-balance sm:text-4xl'>
-        At {profile.studio.name} I take client products from prototype to
-        production, with{' '}
+        At{' '}
+        <a
+          href={profile.studio.url}
+          target='_blank'
+          rel='noreferrer'
+          className='hover:text-brand-text inline-flex items-baseline gap-2 transition-colors'
+        >
+          <HoomanMark className='h-[0.62em] self-center' />
+          {profile.studio.name}
+        </a>{' '}
+        I take client products from prototype to production, with{' '}
         <em className='text-brand-text'>
           {profile.mergedPullRequests} pull requests merged
         </em>{' '}

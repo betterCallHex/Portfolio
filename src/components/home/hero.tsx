@@ -3,6 +3,7 @@ import { cn } from 'cn';
 import { ArrowDownRight, Download } from 'lucide-react';
 import { useReducedMotion } from 'motion/react';
 import { lazy, type Ref, Suspense, useRef, useState } from 'react';
+import { HoomanMark } from '@/components/hooman-mark';
 import type { DeskSceneHandle } from '@/components/scene/desk-scene';
 import { SectionLink } from '@/components/section-link';
 import { Button } from '@/components/ui/button';
@@ -24,8 +25,9 @@ export function Hero() {
           href={profile.studio.url}
           target='_blank'
           rel='noreferrer'
-          className='hover:text-foreground underline-offset-4 transition-colors hover:underline'
+          className='hover:text-foreground inline-flex items-baseline gap-1.5 underline-offset-4 transition-colors hover:underline'
         >
+          <HoomanMark className='h-2.5 self-center' />
           {profile.studio.name}
         </a>
       </p>
